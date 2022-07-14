@@ -72,3 +72,4 @@ class User:
         }
         if User.get_user_by_email(data) != False:
             flash('Email already taken')
+            #add flash categories flash('already taken', email)

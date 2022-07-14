@@ -65,11 +65,13 @@ class User:
         #empty list is falsey
 
 
-    @staticmethod
-    def check_if_email_in_system(data):
-        data = {
-            'email':data['email']
-        }
-        if User.get_user_by_email(data) != False:
-            flash('Email already taken')
+    @classmethod
+    def check_if_email_in_system(cls, data):
+        query = "SELECT * FROM users WHERE email = %(email)s"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if  results == []:
+            return True
+        else:
+            return False
+        
             #add flash categories flash('already taken', email)

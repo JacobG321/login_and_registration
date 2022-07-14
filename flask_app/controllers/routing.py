@@ -32,6 +32,7 @@ def process():
         flash('Password does not match')
         return redirect('/')
     if not User.check_if_email_in_system(data):
+        flash('Email already taken!')
         return redirect('/')
     if not User.new_user_validation(data):
         return redirect('/')

@@ -36,6 +36,8 @@ class User:
         if len(data['password']) < 8:
             flash('Password must be 8 or more characters')
             is_valid = False
+        #below is just for checking if email is in system already
+
         # if not PASSWORD_REGEX.match(data['password']):
         #     flash('Password must contain 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character')
         #     is_valid = False
@@ -62,3 +64,11 @@ class User:
         return cls(results[0])
         #empty list is falsey
 
+
+    @staticmethod
+    def check_if_email_in_system(data):
+        data = {
+            'email':data['email']
+        }
+        if User.get_user_by_email(data) != False:
+            flash('Email already taken')

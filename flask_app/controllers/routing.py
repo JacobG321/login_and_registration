@@ -11,9 +11,8 @@ def index():
 
 @app.route('/success')
 def success():
-    #need if in session statement, use user_id
     if "user_id" not in session:
-        return('/')
+        return redirect('/')
     data = {
         "id" : session['user_id']
     }
@@ -32,6 +31,8 @@ def process():
     if request.form['confirm_password'] != request.form['password']:
         flash('Password does not match')
         return redirect('/')
+    if not User.check_if_email_in_system(data):
+        return redirect('/')
     if not User.new_user_validation(data):
         return redirect('/')
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
@@ -40,9 +41,8 @@ def process():
     #this is where I set the session, session transfers from page to page
     #inserting gives you back an ID
     session['user_id'] = User.save_user(data)
-    id = session['user_id']
     # using session to stay logged in
-    return redirect('/success/')
+    return redirect('/success')
 
 
 
@@ -52,6 +52,7 @@ def signing_in():
         'email':request.form['email'],
     }
     user_in_db = User.get_user_by_email(data)
+    
     if not user_in_db:
         flash('Invalid Email/Password')
         return redirect('/')
@@ -59,7 +60,6 @@ def signing_in():
         flash('Invalid Email/Password')
         return redirect('/')
     session['user_id'] = user_in_db.id
-    id = session['user_id']
     return redirect('/success')
 
 @app.route('/signout')

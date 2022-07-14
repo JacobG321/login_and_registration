@@ -10,9 +10,10 @@
 </head>
 <body>
     <!-- gave me a list with a dictionary, access list then dictionary -->
-    <h1>{{this_user[0]['first_name']}}, you have an account, awesome :)</h1>
-    <form action='/success/{{this_user[0]["id"]}}/signout'>
+    <h1>{{this_user.first_name}}, you have an account, awesome :)</h1>
+    <form action='/signout'>
         <button type="submit" class="btn btn-danger">Signout</button>
     </form>
 </body>
 </html>
+

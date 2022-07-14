@@ -14,6 +14,7 @@ class User:
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = data['password']
+        #add created and updated at
 
     @classmethod
     def save_user(cls, data):
@@ -45,7 +46,11 @@ class User:
     def get_user_by_id(cls,data):
         query = "SELECT * FROM users WHERE id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
-        return results
+        if len(results) == 0:
+            return None
+        else:
+            #we get a list with a dictionary, need the zero to just grab the dictionary
+            return cls(results[0])
 
 
     @classmethod

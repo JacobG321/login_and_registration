@@ -9,10 +9,13 @@ from flask_app.models.user import User
 def index():
     return render_template('index.html')
 
-@app.route('/success/<int:id>')
-def success(id):
+@app.route('/success')
+def success():
+    #need if in session statement, use user_id
+    if "user_id" not in session:
+        return('/')
     data = {
-        "id" : id
+        "id" : session['user_id']
     }
     user_data = User.get_user_by_id(data)
     return render_template('success.html', this_user = user_data)
@@ -34,10 +37,12 @@ def process():
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
     print(pw_hash)
     data['password'] = pw_hash
+    #this is where I set the session, session transfers from page to page
+    #inserting gives you back an ID
     session['user_id'] = User.save_user(data)
     id = session['user_id']
     # using session to stay logged in
-    return redirect(f'/success/{id}')
+    return redirect('/success/')
 
 
 
@@ -55,13 +60,9 @@ def signing_in():
         return redirect('/')
     session['user_id'] = user_in_db.id
     id = session['user_id']
-    return redirect(f'/success/{id}')
+    return redirect('/success')
 
-@app.route('/success/<int:id>/signout')
-def signout(id):
-    data = {
-        'id':id
-    }
-    session['data'] = data
+@app.route('/signout')
+def signout():
     session.clear()
     return redirect('/')

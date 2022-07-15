@@ -10,51 +10,62 @@
 </head>
 <body>
 
-    <div class="d-flex bg-secondary">
-        <form action="/new_account" method="POST" class="col-lg-2 offset-lg-3 bg-info text-center mt-5 pb-2">
-            <h1>Register</h1>
-            {% with messages = get_flashed_messages() %}     
-                {% if messages %}                            
-                    {% for message in messages %}            
-                    <p>{{message}}</p>                   
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <div>
-                <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id=""> 
+    <div class="">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <h1>Recipe Share</h1>
             </div>
-            <div>
-                <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id=""> 
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-3 col-sm-2 ">
+                <form action="/new_account" method="POST" class="bg-info bg-gradient text-center pb-2">
+                    <h2 class="text-center">Register</h2>
+                    {% with messages = get_flashed_messages() %}     
+                        {% if messages %}                            
+                            {% for message in messages %}            
+                            <p>{{message}}</p>                   
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="row d-flex justify-content-center">
+                        <label>First Name:</label>
+                        <input type="text" name="first_name" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <label>Last Name:</label>
+                        <input type="text" name="last_name" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <label>Email:</label>
+                        <input type="text" name="email" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <label>Password:</label>
+                        <input type="text" name="password" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <label for="confirm_password">Confirm Password:</label>
+                        <input type="text" name="confirm_password" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <button class="btn btn-danger mt-2" type="submit">Register</button>
+                </form>
             </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="text" name="email" id=""> 
+            <div class="col-lg-3 col-sm-2">
+                <form action="/signing_in" method="POST" class="bg-info bg-gradient text-center">
+                    <h2 class="text-center">Sign In</h2>
+                    <div class="row d-flex justify-content-center">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <label for="password">Password:</label>
+                        <input type="text" name="password" class="col-lg-6 col-sm-4"> 
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Sign in</button>
+                </form>
             </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="text" name="password" id=""> 
-            </div>
-            <div>
-                <label for="confirm_password">Confirm Password:</label>
-                <input type="text" name="confirm_password" id=""> 
-            </div>
-            <button class="btn btn-danger mt-2" type="submit">Register</button>
-        </form>
+        </div>
 
-        <form action="/signing_in" method="POST" class="col-lg-2 offset-lg-1 bg-info text-center mt-5">
-            <h1>Sign In</h1>
-            <div class="mt-1">
-                <label for="email">Email:</label>
-                <input type="text" name="email" id=""> 
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="text" name="password" id=""> 
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Sign in</button>
-        </form>
     </div>
 
 </body>
